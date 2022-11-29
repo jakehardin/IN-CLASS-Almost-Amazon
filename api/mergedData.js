@@ -14,6 +14,12 @@ const getBookDetails = (firebaseKey) => new Promise((resolve, reject) => {
   // Create an object that has book data and an object named authorObject
 });
 
+const getAuthorDetails = async (firebaseKey) => {
+  const authorObject = await getSingleAuthor(firebaseKey);
+  const booksArray = await getAuthorBooks(firebaseKey);
+  return { ...authorObject, booksArray };
+};
+
 const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, reject) => {
   getAuthorBooks(firebaseKey).then((authorBooksArray) => {
     const deleteBookPromises = authorBooksArray.map((book) => deleteBook(book.firebaseKey));
@@ -24,4 +30,4 @@ const deleteAuthorBooksRelationship = (firebaseKey) => new Promise((resolve, rej
   }).catch(reject);
 });
 
-export { getBookDetails, deleteAuthorBooksRelationship };
+export { getBookDetails, deleteAuthorBooksRelationship, getAuthorDetails };

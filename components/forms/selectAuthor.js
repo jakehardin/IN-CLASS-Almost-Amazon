@@ -6,7 +6,7 @@ const selectAuthor = (authorId, user) => {
     <select class="form-control" id="author_id" required>
     <option value="">Select an Author</option>`;
 
-  getAuthors(user.uid).then((authorsArray) => {
+  getAuthors(user).then((authorsArray) => {
     authorsArray.forEach((author) => {
       domString += `
           <option 

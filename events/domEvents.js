@@ -1,10 +1,11 @@
 import { getAuthors, getSingleAuthor } from '../api/authorData';
 import { deleteBook, getBooks, getSingleBook } from '../api/bookData';
-import { getBookDetails, deleteAuthorBooksRelationship } from '../api/mergedData';
+import { getBookDetails, deleteAuthorBooksRelationship, getAuthorDetails } from '../api/mergedData';
 import addAuthorForm from '../components/forms/addAuthorForm';
 import addBookForm from '../components/forms/addBookForm';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
+import viewAuthorBooks from '../pages/viewAuthorBooks';
 import viewBook from '../pages/viewBook';
 
 const domEvents = (user) => {
@@ -65,6 +66,10 @@ const domEvents = (user) => {
       getSingleAuthor(firebaseKey).then((authObj) => addAuthorForm(authObj));
     }
     // TODO: CLICK EVENT FOR VIEW AUTHOR DETAILS
+    if (e.target.id.includes('view-author-btn')) {
+      const [, firebaseKey] = e.target.id.split('--');
+      getAuthorDetails(firebaseKey).then(viewAuthorBooks);
+    }
   });
 };
 
